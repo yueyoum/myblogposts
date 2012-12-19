@@ -39,4 +39,4 @@ Lisp, Haskell, Scala, Clojure, etc.都是我感兴趣，并计划学习的.
 所以，先做个blog，然后这里会记录我的学习过程。
 
 
-[this_screen_shot]: http://i1297.photobucket.com/albums/ag23/yueyoum/vim_md_shadowed_zps9133c7f0.png "screenshot"
+[this_screen_shot]: http://i1297.photobucket.com/albums/ag23/yueyoum/xx_zps75e45cb8.png "screenshot"
