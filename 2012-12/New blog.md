@@ -15,7 +15,7 @@ Tags: other
 
 ## Write Your Blog In New Way
 
-![vim your blog](http://fmn.rrimg.com/fmn061/20121218/2230/p_large_11pH_0216000001a71262.jpg)
+![vim your blog][this_screen_shot]
 
 在这之前，也自己做过一次个人 blog，
 可那个并没有坚持太长时间，因为写作方式的不喜欢，
@@ -37,3 +37,6 @@ Assembly, C/C++, Bash, Python, Ruby, Erlang, Javascript, 是我现在接触并�
 
 Lisp, Haskell, Scala, Clojure, etc.都是我感兴趣，并计划学习的.
 所以，先做个blog，然后这里会记录我的学习过程。
+
+
+[this_screen_shot]: http://i1297.photobucket.com/albums/ag23/yueyoum/vim_md_shadowed_zps9133c7f0.png "screenshot"
