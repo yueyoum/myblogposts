@@ -12,7 +12,7 @@ Tags: python, django
  *  超强的Admin
  *  大量第三方程序/库的支持
 
- 第一点优劣参办，但第二点，也就是 **Admin** , 绝对值得用Django
+第一点优劣参半，但第二点，也就是 **Admin** , 绝对值得用Django
 
 # 遇到的问题
 
@@ -36,11 +36,11 @@ Tags: python, django
         mode_one_1 = models.IntegerField(default=0)
         mode_one_2 = models.IntegerField(default=0)
         mode_two_1 = models.IntegerField(default=0)
-        mode_two_1 = models.IntegerField(default=0)
+        mode_two_2 = models.IntegerField(default=0)
         ...
     ```
 
-当然上面实例中也可以写成 `models.IntegerField(null=True, blank=True)`
+当然上面示例中也可以写成 `models.IntegerField(null=True, blank=True)`
 
 页面出来的效果大概就是这样：
 ![showcase1](http://i1297.photobucket.com/albums/ag23/yueyoum/editor_showcase1_zps28c3c9fd.png)
@@ -61,7 +61,7 @@ Tags: python, django
 今天又要做一个新的编辑器，同样遇到这个问题。
 所以决定彻底解决。经过思考/设计后，下面的这种model关联方式可以很好的解决这种问题.
 
-**直接取自真实项目代码, 但省略掉不相关代码**
+**直接取自真实项目, 但省略掉不相关代码**
 
     ```python
     class Condition(models.Model):
@@ -173,12 +173,13 @@ Tags: python, django
 
 
 生成的Admin页面
+
 ![showcase2](http://i1297.photobucket.com/albums/ag23/yueyoum/editor_showcase2_zps8396be82.png)
 
 
 这样就很清晰，到底要干什么，只用添加对应的表就可以。而且还是带有错误检测的。
 
-这样修改后的好处：
+这样设计表的好处：
 
 *   作为程序员，以后要添加一个新的mode，只要在 models.py 中添加一个新表，并用OneToOne关联。
     然后执行 python manage.py syncdb 就行。方便快速
