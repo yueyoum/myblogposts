@@ -1,4 +1,4 @@
-Tags: python django
+Tags: python, django
 
 在 上一篇 中分析了需求，以及要达到此需求的方法。
 并且完成了自定义页面，加入了需要的元素。
