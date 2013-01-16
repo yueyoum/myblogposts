@@ -57,10 +57,9 @@ ManyToMany 关联表。不需要暴露出来，暴露出来也不方便填写。
 自定义change_form，在 [Django 文档](https://docs.djangoproject.com/en/1.4/ref/contrib/admin/)
 中有说明。只要照做就可以。
 
-## 建自定义change_form
 
 根据你的APP和model，建立对应的目录: templates/admin/APP/MODEL/change_form.html .
-**并且讲 templates 目录加入 settings.py 中的 TEMPLATE_DIRS**
+**并且将 templates 目录加入 settings.py 中的 TEMPLATE_DIRS**
 
 change_form.html 中的内容：
 
@@ -79,7 +78,7 @@ change_form.html 中的内容：
 django自身的 **contrib/admin/templatetags/admin_modify.py 中的 submit_row**
 
 
-因为我们的目的是要修改 admin change_form 页面下面的一行 按钮，而这些按钮默认有
+因为我们的目的是要修改 admin change_form 页面下面的一行 按钮，而这些按钮默认由
 submit_row 这个tag来导入。所以我们自定义这个tag, 并且自定义 admin/submit_line.html
 
 # 自定义tag
@@ -87,7 +86,7 @@ submit_row 这个tag来导入。所以我们自定义这个tag, 并且自定义 
 自定义 custom_submit_line tag, 如何自定义， [Django 文档](https://docs.djangoproject.com/en/1.4/howto/custom-template-tags/)中也讲的很明白，这里直接上代码
 
     ```python
-    # cat YOURAPP/templatetags/custom_submit_line.py
+    # file YOURAPP/templatetags/custom_submit_line.py
     import os
 
     CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -147,7 +146,7 @@ submit_row 这个tag来导入。所以我们自定义这个tag, 并且自定义 
 
 # 页面自定义完成
 
-这时，在你对应的APP 的 增加/修改页面， 应该就会出现一个新的按钮：
+这时，在你对应的APP 的 增加/修改页面， 应该就会出现一个新的按钮： **将此内容作为新内容保存**
 
 ![new button](http://i1297.photobucket.com/albums/ag23/yueyoum/bbb_zpsc607a564.png)
 
