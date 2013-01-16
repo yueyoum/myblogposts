@@ -50,7 +50,7 @@ Tags: python django
 ![ComplexModelAdmin](http://i1297.photobucket.com/albums/ag23/yueyoum/ccc_zpsdd744049.png)
 
 
-这是不能还像上面那样简单的用 save_model, 因为 只会保存 自身modele的信息，而关联表却没有
+这时不能还像上面那样简单的用 save_model, 因为 只会保存 自身modele的信息，而关联表却没有
 对应的保存下来。
 
 虽然 可以重写 **save_formset** 方法， 但我并没用这个方法， 而是继续在 save_model 中
@@ -71,7 +71,7 @@ Tags: python django
 
             obj.save()
 
-            # 上面只是将obj自身进行了复制保存，与它向关联的记录还没有相应的复制
+            # 上面只是将obj自身进行了复制保存，与它相关联的记录还没有相应的复制
             # 下面就是关联条目的处理
             if change and request.POST.get('_as_new', None) is not None:
                 original_obj = ComplexModel.objects.get(pk=original_id)
