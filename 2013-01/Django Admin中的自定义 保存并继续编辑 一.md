@@ -56,3 +56,101 @@ ManyToMany 关联表。不需要暴露出来，暴露出来也不方便填写。
 
 自定义change_form，在 [Django 文档](https://docs.djangoproject.com/en/1.4/ref/contrib/admin/)
 中有说明。只要照做就可以。
+
+## 建自定义change_form
+
+根据你的APP和model，建立对应的目录: templates/admin/APP/MODEL/change_form.html .
+**并且讲 templates 目录加入 settings.py 中的 TEMPLATE_DIRS**
+
+change_form.html 中的内容：
+
+    ```html
+    {% extends "admin/change_form.html" %}
+    {% load i18n admin_static admin_modify %}
+    {% load url from future %}
+    {% load admin_urls %}
+
+    {% load custom_submit_line %}
+
+    {% block submit_buttons_bottom %}{% custom_submit_line %}{% endblock %}
+    ```
+
+这里用了自定义的一个tag, **custom_submit_line** ，其实也就是简单的扩展了一下
+django自身的 **contrib/admin/templatetags/admin_modify.py 中的 submit_row**
+
+
+因为我们的目的是要修改 admin change_form 页面下面的一行 按钮，而这些按钮默认有
+submit_row 这个tag来导入。所以我们自定义这个tag, 并且自定义 admin/submit_line.html
+
+# 自定义tag
+
+自定义 custom_submit_line tag, 如何自定义， [Django 文档](https://docs.djangoproject.com/en/1.4/howto/custom-template-tags/)中也讲的很明白，这里直接上代码
+
+    ```python
+    # cat YOURAPP/templatetags/custom_submit_line.py
+    import os
+
+    CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
+    SUBMIT_LINE_HTML = os.path.normpath(
+        os.path.join(CURRENT_PATH, '../../templates/admin/custom_submit_line.html')
+    )
+
+    from django import template
+
+    register = template.Library()
+
+    @register.inclusion_tag(SUBMIT_LINE_HTML, takes_context=True)
+    def custom_submit_line(context):
+        opts = context['opts']
+        change = context['change']
+        is_popup = context['is_popup']
+        save_as = context['save_as']
+        return {
+            'onclick_attrib': (opts.get_ordered_objects() and change
+                                and 'onclick="submitOrderForm();"' or ''),
+            'show_delete_link': (not is_popup and context['has_delete_permission']
+                                  and (change or context['show_delete'])),
+            'show_save_as_new': not is_popup and change and save_as,
+            'show_save_and_add_another': context['has_add_permission'] and
+                                not is_popup and (not save_as or context['add']),
+            'show_save_and_continue': not is_popup and context['has_change_permission'],
+            'is_popup': is_popup,
+            'show_save': True,
+            'show_save_and_as_new': context['has_add_permission'] and
+                                not is_popup and (not save_as or context['add']),
+        }
+    ```
+
+
+在这个 tags 中，我们载入了自定义的 custom_submit_line.html，
+正如上面所说，这个只是简单的在 admin/submit_line.html 中添加了一个 input
+
+
+# 自定义submit_line.html
+
+这个没什么好说的。就是把 admin/submit_line.html, 拷贝一份，然后加上自己的内容
+
+    ```html
+    {% load i18n %}
+    <div class="submit-row">
+    {% if show_save %}<input type="submit" value="{% trans 'Save' %}" class="default" name="_save" {{ onclick_attrib }}/>{% endif %}
+    {% if show_delete_link %}<p class="deletelink-box"><a href="delete/" class="deletelink">{% trans "Delete" %}</a></p>{% endif %}
+    {% if show_save_as_new %}<input type="submit" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }}/>{%endif%}
+    {% if show_save_and_add_another %}<input type="submit" value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} />{% endif %}
+    {% if show_save_and_continue %}<input type="submit" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }}/>{% endif %}
+    {% if show_save_and_as_new %}<input type="submit" value="将此内容作为新内容保存" name="_as_new" {{ onclick_attrib }}/>{% endif %} 
+    </div>
+    ```
+
+上面最后一行是我新加的。
+
+
+# 页面自定义完成
+
+这时，在你对应的APP 的 增加/修改页面， 应该就会出现一个新的按钮：
+
+![new button](http://i1297.photobucket.com/albums/ag23/yueyoum/bbb_zpsc607a564.png)
+
+
+这样页面的自定义就完成了， 下一篇再讲如何写对应的功能
+
