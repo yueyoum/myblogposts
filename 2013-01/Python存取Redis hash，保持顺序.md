@@ -1,4 +1,4 @@
-Tags: python redis
+Tags: python, redis
 
 今天在工作中发现，某些有顺序的hash记录，取出来却不能保证顺序。
 后来发现是自己的疏忽，并不是redis的问题

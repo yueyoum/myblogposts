@@ -1,4 +1,4 @@
-Tags: firefox
+Tags: python
 
 ## 问题情况
 

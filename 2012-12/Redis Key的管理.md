@@ -1,4 +1,4 @@
-Tags: redis
+Tags: redis, python
 
 Redis就不用介绍了，这里简单说一点自己在开发中的心得.
 
