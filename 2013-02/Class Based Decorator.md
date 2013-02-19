@@ -45,16 +45,16 @@ Tags: python
 所以上面这段代码的实际作用是，
 
 1.  首先检测my_func的第一个位置参数data是否合法
-2.  如果data不合法，那么就直接在 check 中raise 了异常, 并由 error_handler 捕获
-3.  如果data合法，就执行my_func。如果my_func raise了异常，同样由 error_handler 捕获异常的第一个参数作为返回
+2.  如果data不合法，那么就直接在 check 中raise 了异常, 并由 error_handler 捕获异常的第一个参数作为返回
+3.  如果data合法，就执行my_func。如果my_func raise了异常，同样由 error_handler 捕获
 4.  my_func顺利执行，就把 my_func 的结果返回
 
 
-本来一起运行良好。但在后的实现中发现需要修改返回方式，不能直接返回。
+本来工作良好。但在后来的项目中发现需要修改返回方式，不能直接返回。
 需要由另一个返回网关统一管理，这个网关需要一个唯一标识码，这个标识码从 my_func 的第一个位置参数 data 可以取出
 
 但现在如果保持这种两个函数的装饰器，不太方便达到这个目的。
-因为我不想再在 error_handler 中解析一遍 data, 因为 data 已经在 check 和 my_func 中至少解析两遍了。
+因为我不想再在 error_handler 中再解析一遍 data, 因为 data 已经在 check 和 my_func 中至少解析两遍了。
 
 我开始用 raise MyException(10, SIGN) 这种方法将这个标识码传递到 error_handler 中。
 但发现这样需要修改的地方太多。于是用了下面这种方法：
@@ -128,7 +128,7 @@ Tags: python
 
 
     @NoNeedCheckGuard(...)
-    def this_func_no_not_need_check_arguments(data):
+    def this_func_do_not_need_check_arguments(data):
         pass
     ```
 
