@@ -62,3 +62,14 @@ Tags: python
     '4124bc0a9335c27f086f24ba207a4912'
     ```
 
+所以在项目的入口文件加入几行，就可以轻松切换使用的json库
+
+    ```python
+    import sys
+
+    try:
+        sys.modules['json'] = __import__('ujson')
+    except ImportError:
+        pass
+    ```
+
