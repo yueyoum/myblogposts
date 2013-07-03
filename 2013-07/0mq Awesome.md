@@ -46,7 +46,7 @@ Tags: zeromq
 1.	一个REQ, 多个REP， 这样zeromq会自动负载均衡
 
 	看上去很完美，但这种方式有一个最大问题，就是如果我后面新开 service 进程
-	来进一步提高处理数度，那么必须想办法通知 web，req 要多连接一个新开的 service。
+	来进一步提高处理速度，那么必须想办法通知 web，req 要多连接一个新开的 service。
 
 	如果不是用外部存储，保存开启的 service 情况，那么就 **必须** 重启web。
 	修改代码，添加上新的REQ 地址
@@ -73,7 +73,7 @@ Tags: zeromq
 client就是上面说的web， 以前直接把 worker 作为 service 在跑，
 现在这些 worker都位于 route 的后面， web直接链接的是 route。
 
-这种架构对于web而言是透明的，它根本不知道也不用关系自己链接的是谁。
+这种架构对于web而言是透明的，它根本不知道也不用关心自己链接的是谁。
 
 route 要bind三个端口：
 
@@ -99,7 +99,7 @@ worker 就要connect两个端口:
 #### 好处
 
 *	容易扩展, 只要启动新的worker的就可以。不用新指定端口，不用重启其他服务。
-*	容错性好，一个worker挂了，其他worker会继续工作
+*	容错性好，一个worker挂了，请求会自动分发到其他worker，继续工作
 *	容易部署，使用 [supervisord][4]
 
 
