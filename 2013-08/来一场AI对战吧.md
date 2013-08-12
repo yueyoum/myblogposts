@@ -7,16 +7,16 @@ AI 对战， 你写的AI 和 别人的AI 进行 对战。
 
 先看演示示例：
 
-[youtube][http://www.youtube.com/watch?v=V6PkjlUXV6w&feature=youtu.be] 
-[youku][http://v.youku.com/v_show/id_XNTk0OTk2Mjg0.html]
+[youtube](http://www.youtube.com/watch?v=V6PkjlUXV6w&feature=youtu.be) 
+[youku](http://v.youku.com/v_show/id_XNTk0OTk2Mjg0.html)
 
 
 CodeBattle 这个项目包含四个部分。
 
-*   [server][https://github.com/yueyoum/codebattle-server]
-*   [client][https://github.com/yueyoum/codebattle-client]
-*   [proto][https://github.com/yueyoum/codebattle-proto]
-*   [ai][https://github.com/yueyoum/codebattle-ai]
+*   [server](https://github.com/yueyoum/codebattle-server)
+*   [client](https://github.com/yueyoum/codebattle-client)
+*   [proto](https://github.com/yueyoum/codebattle-proto)
+*   [ai](https://github.com/yueyoum/codebattle-ai)
 
 client 是一个unity3d的项目，它用来建立房间，以及显示AI的操作.
 
